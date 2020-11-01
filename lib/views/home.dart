@@ -26,6 +26,7 @@ class _Home extends State<Home> {
   String _lat = "Loading..!";
   String _long = "Loading..!";
   Position _currentPosition;
+  bool _locset = false;
   bool _progress = false;
   Future<Timings> timings;
   var now = new DateTime.now();
@@ -129,6 +130,66 @@ class _Home extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[Text("Prayer Timings")]),
                     ),
+                    DataTable(
+                      columns: const <DataColumn>[
+                        DataColumn(
+                          label: Text(
+                            'Prayer',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Start',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                      ],
+                      rows: <DataRow>[
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('Fajr')),
+                            DataCell(Text(snapshot.data.fajr)),
+                            
+                          ],
+                        ),
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('Dhur')),
+                            DataCell(Text(snapshot.data.fajr)),
+                            
+                          ],
+                        ),
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('Asr')),
+                            DataCell(Text(snapshot.data.asr)),
+                            
+                          ],
+                        ),
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('Maghrib')),
+                            DataCell(Text(snapshot.data.maghrib)),
+                            
+                          ],
+                        ),
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('Isha')),
+                            DataCell(Text(snapshot.data.isha)),
+                            
+                          ],
+                        ),
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text('Qiyam')),
+                            DataCell(Text(snapshot.data.imsak)),
+                            
+                          ],
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -148,25 +209,31 @@ class _Home extends State<Home> {
     setState(() {
       _progress = true;
     });
-
-    LocationPermission permission = await Geolocator.checkPermission();
-    print(permission);
-    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
-        .then((Position position) {
-      print(position);
-      print(DateTime.now().toString());
-      timings = fetchTimings(position.latitude.toString(),
-          position.longitude.toString(), DateTime.now().toString());
+    if (_locset) {
       setState(() {
         _progress = false;
-        _currentPosition = position;
-        _lat = position.latitude.toString();
-        _long = position.longitude.toString();
       });
-    }).catchError((e) {
-      print(e);
-      _progress = false;
-    });
+    } else {
+      LocationPermission permission = await Geolocator.checkPermission();
+      print(permission);
+      Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+          .then((Position position) {
+        print(position);
+        print(DateTime.now().toString());
+        timings = fetchTimings(position.latitude.toString(),
+            position.longitude.toString(), DateTime.now().toString());
+        setState(() {
+          _progress = false;
+          _currentPosition = position;
+          _locset = true;
+          _lat = position.latitude.toString();
+          _long = position.longitude.toString();
+        });
+      }).catchError((e) {
+        print(e);
+        _progress = false;
+      });
+    }
   }
 }
 
