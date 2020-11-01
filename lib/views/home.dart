@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -140,7 +141,13 @@ class _Home extends State<Home> {
                         ),
                         DataColumn(
                           label: Text(
-                            'Start',
+                            'Start Time',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                         DataColumn(
+                          label: Text(
+                            'End Time',
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                         ),
@@ -150,12 +157,14 @@ class _Home extends State<Home> {
                           cells: <DataCell>[
                             DataCell(Text('Fajr')),
                             DataCell(Text(snapshot.data.fajr)),
+                            DataCell(Text(snapshot.data.fajr)),
                             
                           ],
                         ),
                         DataRow(
                           cells: <DataCell>[
                             DataCell(Text('Dhur')),
+                            DataCell(Text(snapshot.data.fajr)),
                             DataCell(Text(snapshot.data.fajr)),
                             
                           ],
@@ -164,12 +173,14 @@ class _Home extends State<Home> {
                           cells: <DataCell>[
                             DataCell(Text('Asr')),
                             DataCell(Text(snapshot.data.asr)),
+                            DataCell(Text(snapshot.data.asr)),
                             
                           ],
                         ),
                         DataRow(
                           cells: <DataCell>[
                             DataCell(Text('Maghrib')),
+                            DataCell(Text(snapshot.data.maghrib)),
                             DataCell(Text(snapshot.data.maghrib)),
                             
                           ],
@@ -178,12 +189,14 @@ class _Home extends State<Home> {
                           cells: <DataCell>[
                             DataCell(Text('Isha')),
                             DataCell(Text(snapshot.data.isha)),
+                            DataCell(Text(snapshot.data.isha)),
                             
                           ],
                         ),
                         DataRow(
                           cells: <DataCell>[
                             DataCell(Text('Qiyam')),
+                            DataCell(Text(snapshot.data.imsak)),
                             DataCell(Text(snapshot.data.imsak)),
                             
                           ],
