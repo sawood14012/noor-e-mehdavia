@@ -157,7 +157,7 @@ class _Home extends State<Home> {
                           cells: <DataCell>[
                             DataCell(Text('Fajr')),
                             DataCell(Text(snapshot.data.fajr)),
-                            DataCell(Text(snapshot.data.fajr)),
+                            DataCell(Text(convertdate(snapshot.data.fajr))),
                             
                           ],
                         ),
@@ -165,7 +165,7 @@ class _Home extends State<Home> {
                           cells: <DataCell>[
                             DataCell(Text('Dhur')),
                             DataCell(Text(snapshot.data.fajr)),
-                            DataCell(Text(snapshot.data.fajr)),
+                            DataCell(Text(convertdate(snapshot.data.fajr))),
                             
                           ],
                         ),
@@ -173,7 +173,7 @@ class _Home extends State<Home> {
                           cells: <DataCell>[
                             DataCell(Text('Asr')),
                             DataCell(Text(snapshot.data.asr)),
-                            DataCell(Text(snapshot.data.asr)),
+                            DataCell(Text(convertdate(snapshot.data.asr))),
                             
                           ],
                         ),
@@ -181,7 +181,7 @@ class _Home extends State<Home> {
                           cells: <DataCell>[
                             DataCell(Text('Maghrib')),
                             DataCell(Text(snapshot.data.maghrib)),
-                            DataCell(Text(snapshot.data.maghrib)),
+                            DataCell(Text(convertdate(snapshot.data.maghrib))),
                             
                           ],
                         ),
@@ -189,7 +189,7 @@ class _Home extends State<Home> {
                           cells: <DataCell>[
                             DataCell(Text('Isha')),
                             DataCell(Text(snapshot.data.isha)),
-                            DataCell(Text(snapshot.data.isha)),
+                            DataCell(Text(convertdate(snapshot.data.isha))),
                             
                           ],
                         ),
@@ -197,7 +197,7 @@ class _Home extends State<Home> {
                           cells: <DataCell>[
                             DataCell(Text('Qiyam')),
                             DataCell(Text(snapshot.data.imsak)),
-                            DataCell(Text(snapshot.data.imsak)),
+                            DataCell(Text(convertdate(snapshot.data.imsak))),
                             
                           ],
                         ),
@@ -247,6 +247,15 @@ class _Home extends State<Home> {
         _progress = false;
       });
     }
+  }
+
+  convertdate(String d){
+    var date = DateTime.parse("2020-01-20 "+d);
+    var pdate = date.add(Duration(minutes: 15));
+    var str = pdate.hour.toString() + ":" + pdate.minute.toString();
+
+    return str;
+
   }
 }
 
