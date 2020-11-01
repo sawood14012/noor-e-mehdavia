@@ -193,21 +193,6 @@ class _Home extends State<Home> {
                         ),
                       ],
                     ),
-                    FutureBuilder(
-                      future: _deviceSupport,
-                      builder: (_, AsyncSnapshot<bool> snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting)
-                          return LoadingIndicator();
-                        if (snapshot.hasError)
-                          return Center(
-                            child: Text("Error: ${snapshot.error.toString()}"),
-                          );
-
-                        if (snapshot.data) return QiblahCompass();
-                        //else
-                        // return QiblahMaps();
-                      },
-                    ),
                   ],
                 ),
               ),

@@ -3,6 +3,7 @@ import 'views/media.dart';
 import 'views/home.dart';
 import 'views/calendar.dart';
 import 'views/map.dart';
+import 'views/qibla.dart';
 
 void main() {
   runApp(MyApp());
@@ -57,12 +58,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   // ignore: unused_field
-  static  List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     Home(),
     Calendar(),
     Maps(),
     Media(),
-    
   ];
 
   void _onItemTapped(int index) {
@@ -71,12 +71,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-    @override
+  @override
   void initState() {
-    
     super.initState();
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -88,12 +86,24 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.navigate_next),
+              tooltip: 'Next page',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Qibla()),
+                );
+              },
+            ),
+          ]),
 
-      body:  _widgetOptions.elementAt(_selectedIndex),
+      body: _widgetOptions.elementAt(_selectedIndex),
+
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -120,8 +130,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
-
-  
 }
-
