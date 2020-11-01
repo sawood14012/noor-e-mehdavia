@@ -1,10 +1,13 @@
 import 'dart:convert';
 import 'dart:ffi';
-
+import 'package:flutter_qiblah/flutter_qiblah.dart';
+import 'package:mehdavia/views/qibalah_compass.dart';
+import 'package:mehdavia/views/loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mehdavia/models/timings.dart';
+
 import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
@@ -30,6 +33,7 @@ class _Home extends State<Home> {
   bool _locset = false;
   bool _progress = false;
   Future<Timings> timings;
+  final _deviceSupport = FlutterQiblah.androidDeviceSensorSupport();
   var now = new DateTime.now();
 
   @override
@@ -40,15 +44,7 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    if (_progress) {
-      return _loading_state();
-    } else {
-      return _home();
-    }
-  }
-
-  Widget _loading_state() {
-    return Center(child: CircularProgressIndicator());
+    return _home();
   }
 
   Widget _home() {
@@ -80,7 +76,7 @@ class _Home extends State<Home> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    ListTile(
+                    /*  ListTile(
                       leading: Icon(CupertinoIcons.hourglass_bottomhalf_fill),
                       title: Text("Fajr : 5:00 am"),
                       subtitle: Text("15 min's left"),
@@ -88,7 +84,7 @@ class _Home extends State<Home> {
                     Divider(
                       height: 10,
                       thickness: 3,
-                    ),
+                    ), */
                     ListTile(
                       title: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -145,7 +141,7 @@ class _Home extends State<Home> {
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                         ),
-                         DataColumn(
+                        DataColumn(
                           label: Text(
                             'End Time',
                             style: TextStyle(fontStyle: FontStyle.italic),
@@ -158,7 +154,6 @@ class _Home extends State<Home> {
                             DataCell(Text('Fajr')),
                             DataCell(Text(snapshot.data.fajr)),
                             DataCell(Text(convertdate(snapshot.data.fajr))),
-                            
                           ],
                         ),
                         DataRow(
@@ -166,7 +161,6 @@ class _Home extends State<Home> {
                             DataCell(Text('Dhur')),
                             DataCell(Text(snapshot.data.fajr)),
                             DataCell(Text(convertdate(snapshot.data.fajr))),
-                            
                           ],
                         ),
                         DataRow(
@@ -174,7 +168,6 @@ class _Home extends State<Home> {
                             DataCell(Text('Asr')),
                             DataCell(Text(snapshot.data.asr)),
                             DataCell(Text(convertdate(snapshot.data.asr))),
-                            
                           ],
                         ),
                         DataRow(
@@ -182,7 +175,6 @@ class _Home extends State<Home> {
                             DataCell(Text('Maghrib')),
                             DataCell(Text(snapshot.data.maghrib)),
                             DataCell(Text(convertdate(snapshot.data.maghrib))),
-                            
                           ],
                         ),
                         DataRow(
@@ -190,7 +182,6 @@ class _Home extends State<Home> {
                             DataCell(Text('Isha')),
                             DataCell(Text(snapshot.data.isha)),
                             DataCell(Text(convertdate(snapshot.data.isha))),
-                            
                           ],
                         ),
                         DataRow(
@@ -198,10 +189,24 @@ class _Home extends State<Home> {
                             DataCell(Text('Qiyam')),
                             DataCell(Text(snapshot.data.imsak)),
                             DataCell(Text(convertdate(snapshot.data.imsak))),
-                            
                           ],
                         ),
                       ],
+                    ),
+                    FutureBuilder(
+                      future: _deviceSupport,
+                      builder: (_, AsyncSnapshot<bool> snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting)
+                          return LoadingIndicator();
+                        if (snapshot.hasError)
+                          return Center(
+                            child: Text("Error: ${snapshot.error.toString()}"),
+                          );
+
+                        if (snapshot.data) return QiblahCompass();
+                        //else
+                        // return QiblahMaps();
+                      },
                     ),
                   ],
                 ),
@@ -249,14 +254,27 @@ class _Home extends State<Home> {
     }
   }
 
-  convertdate(String d){
-    var date = DateTime.parse("2020-01-20 "+d);
+  convertdate(String d) {
+    var date = DateTime.parse("2020-01-20 " + d);
     var pdate = date.add(Duration(minutes: 15));
     var str = pdate.hour.toString() + ":" + pdate.minute.toString();
 
     return str;
-
   }
+
+  /*  nextprayer(String fajr, String dhur, String asr, String magrib, String isha){
+    var now = DateTime.now();
+    var hour = now.hour.toString();
+    var dates = [];
+    dates.add(DateTime.parse("2020-01-20 "+fajr));
+    dates.add(DateTime.parse("2020-01-20 "+dhur));
+    dates.add(DateTime.parse("2020-01-20 "+asr));
+    dates.add(DateTime.parse("2020-01-20 "+magrib));
+    dates.add(DateTime.parse("2020-01-20 "+isha));
+
+     
+
+} */
 }
 
 Future<Timings> fetchTimings(String lat, String long, String date) async {
