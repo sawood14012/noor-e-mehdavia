@@ -17,7 +17,7 @@ class Timings {
   factory Timings.fromJson(Map<String, dynamic> json) {
     return Timings(
       asr: json['timings']['asr'],
-      dhur: json['timings']['dhur'],
+      dhur: json['timings']['dhuhr'],
       fajr: json['timings']['fajr'],
       imsak: json['timings']['imsak'],
       isha: json['timings']['isha'],

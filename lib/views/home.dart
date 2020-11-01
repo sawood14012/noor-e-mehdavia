@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mehdavia/models/timings.dart';
+import 'package:intl/intl.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -98,7 +99,7 @@ class _Home extends State<Home> {
                             backgroundColor: Colors.grey.shade800,
                             child: Icon(CupertinoIcons.sunrise),
                           ),
-                          label: Text(snapshot.data.sunrise),
+                          label: Text(convertdate12(snapshot.data.sunrise)),
                         ),
                         const SizedBox(width: 8),
                         Chip(
@@ -106,7 +107,7 @@ class _Home extends State<Home> {
                             backgroundColor: Colors.grey.shade800,
                             child: Icon(CupertinoIcons.sunset),
                           ),
-                          label: Text(snapshot.data.sunset),
+                          label: Text(convertdate12(snapshot.data.sunset)),
                         ),
                         const SizedBox(width: 8),
                         Chip(
@@ -114,7 +115,7 @@ class _Home extends State<Home> {
                             backgroundColor: Colors.grey.shade800,
                             child: Icon(CupertinoIcons.moon_stars),
                           ),
-                          label: Text(snapshot.data.midnight),
+                          label: Text(convertdate12(snapshot.data.midnight)),
                         )
                       ],
                     ),
@@ -152,42 +153,42 @@ class _Home extends State<Home> {
                         DataRow(
                           cells: <DataCell>[
                             DataCell(Text('Fajr')),
-                            DataCell(Text(snapshot.data.fajr)),
+                            DataCell(Text(convertdate12(snapshot.data.fajr))),
                             DataCell(Text(convertdate(snapshot.data.fajr))),
                           ],
                         ),
                         DataRow(
                           cells: <DataCell>[
                             DataCell(Text('Dhur')),
-                            DataCell(Text(snapshot.data.fajr)),
-                            DataCell(Text(convertdate(snapshot.data.fajr))),
+                            DataCell(Text(convertdate12(snapshot.data.dhur))),
+                            DataCell(Text(convertdate(snapshot.data.dhur))),
                           ],
                         ),
                         DataRow(
                           cells: <DataCell>[
                             DataCell(Text('Asr')),
-                            DataCell(Text(snapshot.data.asr)),
+                            DataCell(Text(convertdate12(snapshot.data.asr))),
                             DataCell(Text(convertdate(snapshot.data.asr))),
                           ],
                         ),
                         DataRow(
                           cells: <DataCell>[
                             DataCell(Text('Maghrib')),
-                            DataCell(Text(snapshot.data.maghrib)),
+                            DataCell(Text(convertdate12(snapshot.data.maghrib))),
                             DataCell(Text(convertdate(snapshot.data.maghrib))),
                           ],
                         ),
                         DataRow(
                           cells: <DataCell>[
                             DataCell(Text('Isha')),
-                            DataCell(Text(snapshot.data.isha)),
+                            DataCell(Text(convertdate12(snapshot.data.isha))),
                             DataCell(Text(convertdate(snapshot.data.isha))),
                           ],
                         ),
                         DataRow(
                           cells: <DataCell>[
                             DataCell(Text('Qiyam')),
-                            DataCell(Text(snapshot.data.imsak)),
+                            DataCell(Text(convertdate12(snapshot.data.imsak))),
                             DataCell(Text(convertdate(snapshot.data.imsak))),
                           ],
                         ),
@@ -242,9 +243,18 @@ class _Home extends State<Home> {
   convertdate(String d) {
     var date = DateTime.parse("2020-01-20 " + d);
     var pdate = date.add(Duration(minutes: 15));
-    var str = pdate.hour.toString() + ":" + pdate.minute.toString();
+    var newdate = DateFormat("h:mma").format(pdate);
 
-    return str;
+    return newdate.toString();
+  }
+
+  convertdate12(String d){
+    var date = DateTime.parse("2020-01-20 " + d);
+    var newdate = DateFormat("h:mma").format(date);
+    
+
+    return newdate.toString();
+
   }
 
   /*  nextprayer(String fajr, String dhur, String asr, String magrib, String isha){

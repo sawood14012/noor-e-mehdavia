@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'views/media.dart';
 import 'views/home.dart';
 import 'views/calendar.dart';
 import 'views/map.dart';
 import 'views/qibla.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -91,8 +93,18 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
           actions: <Widget>[
             IconButton(
-              icon: const Icon(Icons.navigate_next),
-              tooltip: 'Next page',
+              icon: const FaIcon(FontAwesomeIcons.kaaba),
+              tooltip: 'Qiblah Locator',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Qibla()),
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(CupertinoIcons.info_circle),
+              tooltip: 'About',
               onPressed: () {
                 Navigator.push(
                   context,

@@ -32,6 +32,8 @@ dependencies:
   http: ^0.12.2
   flutter_qiblah: ^1.0.3+2
   flutter_svg: ^0.19.0
+  font_awesome_flutter: ^8.10.0
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
