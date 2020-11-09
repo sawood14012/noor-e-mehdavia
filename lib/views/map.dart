@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Maps extends StatefulWidget {
-  Maps({Key key }) : super(key: key);
+  Maps({Key key, this.title }) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -12,7 +12,7 @@ class Maps extends StatefulWidget {
   // used by the build metrhod of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  
+  final String title;
 
   @override
   _Maps createState() => _Maps();

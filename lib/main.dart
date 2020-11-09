@@ -61,10 +61,10 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   // ignore: unused_field
   static List<Widget> _widgetOptions = <Widget>[
-    Home(),
-    Calendar(),
-    Maps(),
-    Media(),
+    Home(title: "Home"),
+    Calendar(title: "calendar"),
+    Maps(title: "Maps"),
+    Media(title: "Media",),
   ];
 
   void _onItemTapped(int index) {

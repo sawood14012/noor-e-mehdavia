@@ -13,7 +13,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
-  Home({Key key}) : super(key: key);
+  Home({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -23,7 +23,7 @@ class Home extends StatefulWidget {
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build metrhod of the State. Fields in a Widget subclass are
   // always marked "final".
-
+  final String title;
   @override
   _Home createState() => _Home();
 }
