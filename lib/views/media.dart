@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Media extends StatefulWidget {
-  Media({Key key, this.title }) : super(key: key);
+  Media({Key key, this.title}) : super(key: key);
 
-  
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
   // how it looks.
@@ -19,10 +18,7 @@ class Media extends StatefulWidget {
   _Media createState() => _Media();
 }
 
-
-
-class _Media extends State<Media>
-    with SingleTickerProviderStateMixin {
+class _Media extends State<Media> with SingleTickerProviderStateMixin {
   TabController _controller;
   int _selectedIndex = 0;
 
@@ -31,7 +27,6 @@ class _Media extends State<Media>
     Tab(icon: Icon(Icons.add_shopping_cart)),
     Tab(icon: Icon(Icons.add_shopping_cart)),
     Tab(icon: Icon(Icons.add_shopping_cart)),
-
   ];
 
   @override
@@ -48,45 +43,54 @@ class _Media extends State<Media>
       print("Selected Index: " + _controller.index.toString());
     });
   }
+
   @override
   Widget build(BuildContext context) {
-      return Scaffold(
-        appBar: AppBar(
-          bottom: TabBar(
-            onTap: (index) {
-              // Should not used it as it only called when tab options are clicked,
-              // not when user swapped
-            },
-            controller: _controller,
-            tabs: list,
+    return Scaffold(
+      appBar: new PreferredSize(
+          child: new Container(
+            child: new SafeArea(
+              child: Column(
+                children: <Widget>[
+                  new Expanded(child: new Container()),
+                  new TabBar(
+                    onTap: (index) {
+                      // Should not used it as it only called when tab options are clicked,
+                      // not when user swapped
+                    },
+                    controller: _controller,
+                    tabs: list,
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-        body: TabBarView(
-          controller: _controller,
-          children: [
-            Center(
-                child: Text(
-                  _selectedIndex.toString(),
-                  style: TextStyle(fontSize: 40),
-                )),
-            Center(
-                child: Text(
-                  _selectedIndex.toString(),
-                  style: TextStyle(fontSize: 40),
-                )),
-            Center(
-                child: Text(
-                  _selectedIndex.toString(),
-                  style: TextStyle(fontSize: 40),
-                )),
-            Center(
-                child: Text(
-                  _selectedIndex.toString(),
-                  style: TextStyle(fontSize: 40),
-                )),
-            ],
-          ),
-      
-        );
+          preferredSize: Size.fromHeight(kToolbarHeight)),
+      body: TabBarView(
+        controller: _controller,
+        children: [
+          Center(
+              child: Text(
+            _selectedIndex.toString(),
+            style: TextStyle(fontSize: 40),
+          )),
+          Center(
+              child: Text(
+            _selectedIndex.toString(),
+            style: TextStyle(fontSize: 40),
+          )),
+          Center(
+              child: Text(
+            _selectedIndex.toString(),
+            style: TextStyle(fontSize: 40),
+          )),
+          Center(
+              child: Text(
+            _selectedIndex.toString(),
+            style: TextStyle(fontSize: 40),
+          )),
+        ],
+      ),
+    );
   }
 }
