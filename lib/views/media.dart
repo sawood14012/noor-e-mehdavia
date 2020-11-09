@@ -23,10 +23,10 @@ class _Media extends State<Media> with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
 
   List<Widget> list = [
-    Tab(icon: Icon(Icons.card_travel)),
-    Tab(icon: Icon(Icons.add_shopping_cart)),
-    Tab(icon: Icon(Icons.add_shopping_cart)),
-    Tab(icon: Icon(Icons.add_shopping_cart)),
+    Tab(icon: Icon(Icons.book)),
+    Tab(icon: Icon(Icons.format_quote_sharp)),
+    Tab(icon: Icon(Icons.movie)),
+    Tab(icon: Icon(Icons.photo_sharp)),
   ];
 
   @override
@@ -49,6 +49,7 @@ class _Media extends State<Media> with SingleTickerProviderStateMixin {
     return Scaffold(
       appBar: new PreferredSize(
           child: new Container(
+            color: Theme.of(context).primaryColor,
             child: new SafeArea(
               child: Column(
                 children: <Widget>[
