@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mehdavia/models/books.dart';
 import 'package:http/http.dart' as http;
 
+
 class Book extends StatefulWidget {
   Book({Key key, this.title}) : super(key: key);
 
@@ -24,7 +25,15 @@ class Book extends StatefulWidget {
 }
 
 class _Book extends State<Book> {
+
+  
   Future<Books> books_data;
+
+    @override
+  void initState() {
+    fetchBooks();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Center(
