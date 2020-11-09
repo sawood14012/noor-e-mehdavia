@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:mehdavia/models/books.dart';
+import 'package:mehdavia/models/quotes.dart';
 import 'package:http/http.dart' as http;
 
 
-class Book extends StatefulWidget {
-  Book({Key key, this.title}) : super(key: key);
+class Quote extends StatefulWidget {
+  Quote({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -20,17 +20,17 @@ class Book extends StatefulWidget {
   final String title;
 
   @override
-  _Book createState() => _Book();
+  _Quote createState() => _Quote();
 }
 
-class _Book extends State<Book> {
+class _Quote extends State<Quote> {
 
   
-  Future<List<Books>> books_data;
+  Future<List<Quotes>> quote_data;
 
     @override
   void initState() {
-    books_data = fetchBooks();
+    quote_data = fetchQuotes();
     super.initState();
   }
   @override
@@ -38,8 +38,8 @@ class _Book extends State<Book> {
     return Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: FutureBuilder<List<Books>>(
-            future: books_data,
+        child: FutureBuilder<List<Quotes>>(
+            future: quote_data,
             builder: (context, snapshot) {
               print(snapshot.toString());
               if (snapshot.hasData) {
@@ -61,9 +61,9 @@ class _Book extends State<Book> {
   }
 }
 
-Future<List<Books>> fetchBooks() async {
-  var uri = Uri.https('api.nooremahdavia.com', "/media/book");
-  List<Books> ListModel = [];
+Future<List<Quotes>> fetchQuotes() async {
+  var uri = Uri.https('api.nooremahdavia.com', "/media/quote");
+  List<Quotes> ListModel = [];
   print(uri);
 
   final response = await http.get(uri);
@@ -74,10 +74,10 @@ Future<List<Books>> fetchBooks() async {
     
     for(Map i in data['results']){
       //print(i);
-      ListModel.add(Books.fromJson(i));
+      ListModel.add(Quotes.fromJson(i));
     }
    return ListModel;
   } else {
-    throw Exception('Failed to load Books');
+    throw Exception('Failed to load Quotes');
   }
 }

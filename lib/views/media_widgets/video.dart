@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:mehdavia/models/books.dart';
 import 'package:http/http.dart' as http;
+import 'package:mehdavia/models/videos.dart';
 
 
-class Book extends StatefulWidget {
-  Book({Key key, this.title}) : super(key: key);
+class Video extends StatefulWidget {
+  Video({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -20,17 +20,17 @@ class Book extends StatefulWidget {
   final String title;
 
   @override
-  _Book createState() => _Book();
+  _Video createState() => _Video();
 }
 
-class _Book extends State<Book> {
+class _Video extends State<Video> {
 
   
-  Future<List<Books>> books_data;
+  Future<List<Videos>> video_data;
 
     @override
   void initState() {
-    books_data = fetchBooks();
+    video_data = fetchvideos();
     super.initState();
   }
   @override
@@ -38,8 +38,8 @@ class _Book extends State<Book> {
     return Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: FutureBuilder<List<Books>>(
-            future: books_data,
+        child: FutureBuilder<List<Videos>>(
+            future: video_data,
             builder: (context, snapshot) {
               print(snapshot.toString());
               if (snapshot.hasData) {
@@ -48,7 +48,7 @@ class _Book extends State<Book> {
                  itemBuilder: (context,i){
                      final datalist = snapshot.data[i];
                      return Container(
-                       child: Card(child: Column(children: [ Text(datalist.identifier), Text(datalist.name), Text(datalist.url)],),),
+                       child: Card(child: Column(children: [ Text(datalist.display_image),Text(datalist.identifier), Text(datalist.name), Text(datalist.url)],),),
                      );
                  });
               } else if (snapshot.hasError) {
@@ -61,9 +61,9 @@ class _Book extends State<Book> {
   }
 }
 
-Future<List<Books>> fetchBooks() async {
-  var uri = Uri.https('api.nooremahdavia.com', "/media/book");
-  List<Books> ListModel = [];
+Future<List<Videos>> fetchvideos() async {
+  var uri = Uri.https('api.nooremahdavia.com', "/media/video");
+  List<Videos> ListModel = [];
   print(uri);
 
   final response = await http.get(uri);
@@ -74,10 +74,10 @@ Future<List<Books>> fetchBooks() async {
     
     for(Map i in data['results']){
       //print(i);
-      ListModel.add(Books.fromJson(i));
+      ListModel.add(Videos.fromJson(i));
     }
    return ListModel;
   } else {
-    throw Exception('Failed to load Books');
+    throw Exception('Failed to load Videos');
   }
 }

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:mehdavia/models/books.dart';
 import 'package:http/http.dart' as http;
+import 'package:mehdavia/models/photos.dart';
 
 
-class Book extends StatefulWidget {
-  Book({Key key, this.title}) : super(key: key);
+class Photo extends StatefulWidget {
+  Photo({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -20,17 +20,17 @@ class Book extends StatefulWidget {
   final String title;
 
   @override
-  _Book createState() => _Book();
+  _Photo createState() => _Photo();
 }
 
-class _Book extends State<Book> {
+class _Photo extends State<Photo> {
 
   
-  Future<List<Books>> books_data;
+  Future<List<Photos>> photo_data;
 
     @override
   void initState() {
-    books_data = fetchBooks();
+    photo_data = fetchphoto();
     super.initState();
   }
   @override
@@ -38,8 +38,8 @@ class _Book extends State<Book> {
     return Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: FutureBuilder<List<Books>>(
-            future: books_data,
+        child: FutureBuilder<List<Photos>>(
+            future: photo_data,
             builder: (context, snapshot) {
               print(snapshot.toString());
               if (snapshot.hasData) {
@@ -61,9 +61,9 @@ class _Book extends State<Book> {
   }
 }
 
-Future<List<Books>> fetchBooks() async {
-  var uri = Uri.https('api.nooremahdavia.com', "/media/book");
-  List<Books> ListModel = [];
+Future<List<Photos>> fetchphoto() async {
+  var uri = Uri.https('api.nooremahdavia.com', "/media/photo");
+  List<Photos> ListModel = [];
   print(uri);
 
   final response = await http.get(uri);
@@ -74,10 +74,10 @@ Future<List<Books>> fetchBooks() async {
     
     for(Map i in data['results']){
       //print(i);
-      ListModel.add(Books.fromJson(i));
+      ListModel.add(Photos.fromJson(i));
     }
    return ListModel;
   } else {
-    throw Exception('Failed to load Books');
+    throw Exception('Failed to load Photos');
   }
 }

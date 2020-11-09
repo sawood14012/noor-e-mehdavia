@@ -1,9 +1,13 @@
+import 'dart:convert';
+List<Videos> modelBooksFromJson(String str) => List<Videos>.from(json.decode(str).map((x) => Videos.fromJson(x)));
+
+String modelBooksToJson(List<Videos> data) => json.encode(List<dynamic>.from(data.map((x)=> x.toJson())));
 class Videos{
   // ignore: non_constant_identifier_names
   final String display_image;
   final String identifier;
   final String name;
-  final String type;
+  final int type;
   final String url;
  
   
@@ -13,15 +17,22 @@ class Videos{
 
   factory  Videos.fromJson(Map<String, dynamic> json) {
     return  Videos(
-      display_image:json['results']['display_image'],
-      identifier: json['results']['identifier'],
-      name: json['results']['name'],
-      type: json['results']['type'],
-      url: json['results']['url'],
+      display_image:json['display_image'],
+      identifier: json['identifier'],
+      name: json['name'],
+      type: json['type'],
+      url: json['url'],
       
      
     );
   }
+Map<String, dynamic> toJson() => {
+    "display_image":display_image,
+    "identifier": identifier,
+    "name": name,
+    "type" : type,
+    "url" : url
+  };
 
   
 }

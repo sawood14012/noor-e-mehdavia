@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'media_widgets/book.dart';
-
+import 'media_widgets/quote.dart';
+import 'media_widgets/video.dart';
+import 'media_widgets/photo.dart';
 class Media extends StatefulWidget {
   Media({Key key, this.title}) : super(key: key);
 
@@ -72,21 +74,11 @@ class _Media extends State<Media> with SingleTickerProviderStateMixin {
         controller: _controller,
         children: [
           Book(title: "Books",),
-          Center(
-              child: Text(
-            _selectedIndex.toString(),
-            style: TextStyle(fontSize: 40),
-          )),
-          Center(
-              child: Text(
-            _selectedIndex.toString(),
-            style: TextStyle(fontSize: 40),
-          )),
-          Center(
-              child: Text(
-            _selectedIndex.toString(),
-            style: TextStyle(fontSize: 40),
-          )),
+          Quote(title: "Quotes"),
+          Video(title: "Videos"),
+          Photo(title:"Photos")
+          
+          
         ],
       ),
     );
