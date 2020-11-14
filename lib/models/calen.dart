@@ -1,3 +1,9 @@
+import 'dart:convert';
+
+import 'package:mehdavia/views/calendar.dart';
+List<Calendar> modelBooksFromJson(String str) => List<Calendar>.from(json.decode(str).map((x) => Calendar.fromJson(x)));
+
+String modelBooksToJson(List<Calendar> data) => json.encode(List<dynamic>.from(data.map((x)=> x.toJson())));
 class Calen{
   final String gregorianDay;
   final String gregorianMonth;
@@ -11,15 +17,24 @@ class Calen{
 
   factory Calen.fromJson(Map<String, dynamic> json) {
     return Calen(
-      gregorianDay: json['calen']['gregorianDay'],
-      gregorianMonth: json['calen']['gregorianMonth'],
-      hijriDay: json['calen']['hijriDay'],
-      hijriMonth: json['calen']['hijriMonth'],
-      name: json['calen']['name'],
+      gregorianDay: json['gregorianDay'],
+      gregorianMonth: json['gregorianMonth'],
+      hijriDay: json['hijriDay'],
+      hijriMonth: json['hijriMonth'],
+      name: json['name'],
       
      
     );
   }
+  Map<String, dynamic> toJson() => {
+    "gregorianDay": gregorianDay,
+      "gregorianMonth":gregorianMonth,
+      "hijriDay": hijriDay,
+      "hijriMonth":hijriMonth,
+      "name":name,
+      
+    
+  };
 
   
 }
